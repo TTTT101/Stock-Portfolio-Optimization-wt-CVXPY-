@@ -10,20 +10,8 @@ By framing this allocation challenge as a convex optimization problem, the code 
 
 Assuming you plan to invest in Apple, Microsoft, Amazon, Google, and Ndivia the first step is to gather historical market data. Using the _yfinance_ package, we retrieved daily closing prices for these stocks over the past 10 years. As of February 10, 2025, the dataset consists of 2,541 rows and 5 columns, representing the daily closing prices for each stock. Depending on your capital allocation cadency strategy, you can change the data range to just monthly.
 
-Ticker	AAPL	AMZN	GOOGL	MSFT	NVDA
-Date					
-2015-01-02	24.320433	15.426000	26.381865	40.152489	0.483143
-2015-01-05	23.635284	15.109500	25.879185	39.783260	0.474983
-2015-01-06	23.637510	14.764500	25.240503	39.199333	0.460582
-2015-01-07	23.968962	14.921000	25.166271	39.697376	0.459382
-2015-01-08	24.889902	15.023000	25.253954	40.865196	0.476663
-...	...	...	...	...	...
-2025-02-03	227.759583	237.419998	201.229996	410.920013	116.660004
-2025-02-04	232.544327	242.059998	206.380005	412.369995	118.650002
-2025-02-05	232.214691	236.169998	191.330002	413.290009	124.830002
-2025-02-06	232.963867	238.830002	191.600006	415.820007	128.679993
-2025-02-07	227.380005	229.149994	185.339996	409.750000	129.839996
-2541 rows × 5 columns
+<img width="504" alt="Screenshot 2025-02-16 at 5 18 10 PM" src="https://github.com/user-attachments/assets/e52251e2-9700-4d4a-980e-c5a0b947d6b5" />
+
 
 ## Algorithm implemented
 
@@ -64,24 +52,8 @@ There isn't a risk constraint in this model. Instead, risk is minimized through 
 
 ## Outcomes
 
-----------------------
-AAPL: Exp ret = 0.001041, Risk = 0.001608
-AMZN: Exp ret = 0.001274, Risk = 0.002007
-GOOGL: Exp ret = 0.000929, Risk = 0.001615
-MSFT: Exp ret = 0.001061, Risk = 0.001491
-NVDA: Exp ret = 0.002676, Risk = 0.003828
-----------------------
-Optimal portfolio
-----------------------
-x[AAPL] = 0.156053
-x[AMZN] = 0.265775
-x[GOOGL] = 0.000000
-x[MSFT] = 0.030007
-x[NVDA] = 0.548165
-----------------------
-Exp ret = 0.002000
-risk    = 0.002289
-----------------------
+<img width="407" alt="Screenshot 2025-02-16 at 4 48 19 PM" src="https://github.com/user-attachments/assets/8c1ea6a0-777f-4092-9216-dcb62166d41d" />
+
 
 ![image](https://github.com/user-attachments/assets/1643013b-08d8-4ca8-9d28-2a14c8ff0520)
 
