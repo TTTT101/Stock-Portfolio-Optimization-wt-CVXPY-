@@ -1,1 +1,111 @@
-# Stock-Portfolio-Optimization-wt-CVXPY-
+# Simple-Stock-Portfolio-Optimization-wt-CVXPY-
+
+Over the past decade as an active stock trader, I’ve learned that constructing a robust investment portfolio begins with a deep understanding of your individual risk tolerance. Equally important is having a clear, well-defined strategy before committing any capital. Personally, I embrace a high-risk, high-return approach and have developed the discipline to view potential losses as temporary setbacks rather than terminal events. However, managing emotions during market downturns is easier said than done, and not everyone can maintain a level head when investments experience significant declines.
+
+This post outlines a conservative strategy tailored for investors who favor blue-chip stocks—assets known for their stability and modest returns. Once you’ve identified your target stocks, the next challenge is determining the optimal allocation of your funds to maximize returns while managing risk.
+
+By framing this allocation challenge as a convex optimization problem, the code below demonstrates how to employ the cvxpy library to derive an optimal investment strategy. This is a common method in Modern Portfolio Theory (MPT), that finds the Minimum Variance Portfolio (MVP) subject to a required return constraint.
+
+## Data Description
+
+Assuming you plan to invest in Apple, Microsoft, Amazon, Google, and Ndivia the first step is to gather historical market data. Using the _yfinance_ package, we retrieved daily closing prices for these stocks over the past 10 years. As of February 10, 2025, the dataset consists of 2,541 rows and 5 columns, representing the daily closing prices for each stock. Depending on your capital allocation cadency strategy, you can change the data range to just monthly.
+
+Ticker	AAPL	AMZN	GOOGL	MSFT	NVDA
+Date					
+2015-01-02	24.320433	15.426000	26.381865	40.152489	0.483143
+2015-01-05	23.635284	15.109500	25.879185	39.783260	0.474983
+2015-01-06	23.637510	14.764500	25.240503	39.199333	0.460582
+2015-01-07	23.968962	14.921000	25.166271	39.697376	0.459382
+2015-01-08	24.889902	15.023000	25.253954	40.865196	0.476663
+...	...	...	...	...	...
+2025-02-03	227.759583	237.419998	201.229996	410.920013	116.660004
+2025-02-04	232.544327	242.059998	206.380005	412.369995	118.650002
+2025-02-05	232.214691	236.169998	191.330002	413.290009	124.830002
+2025-02-06	232.963867	238.830002	191.600006	415.820007	128.679993
+2025-02-07	227.380005	229.149994	185.339996	409.750000	129.839996
+2541 rows × 5 columns
+
+## Algorithm implemented
+
+The goal of this optimization problem is to minimize portfolio risk (variance) for a given target return. The objective function is:
+
+
+\text{Minimize } x^T C x
+
+
+where:
+	•	 x  is the vector of asset weights (proportions of total investment).
+	•	 C  is the covariance matrix of asset returns.
+	•	 x^T C x  represents the portfolio variance (risk).
+
+Constraints:
+  1.	Full Investment Constraint:
+
+\sum_{i=1}^{n} x_i = 1
+
+All available capital must be fully allocated to the selected assets.
+
+	2.	Return Constraint:
+
+r^T x \geq \text{req\_return}
+
+The portfolio’s expected return must be at least the target return (\text{req\_return}).
+
+	3.	Non-negativity Constraint:
+
+x_i \geq 0 \quad \forall i
+
+No short selling is allowed (i.e., all portfolio weights must be non-negative).
+
+This is a Quadratic Programming probelm using cvxpy solver. First, it loops through monthly prices to calculate returns for each stocks, then stores the results in mr DataFrame. 
+The Expected Returns (r) is the mean return for each asset. 
+Covariance Matrix (C) measure how each pair of assests' returns move together. Once the returns for each asset are stored in the matrix, where rows represent time period and columns represent assets, the covariance matrix is computed using NumPy’s np.cov() function. This matrix is crucial for understanding portfolio risk because it captures how the returns of different assets co-vary.
+There isn't a risk constraint in this model. Instead, risk is minimized through the objective fuction. The required return constraint ensures that, while risk is minimized, the portfolio must still achieve at least a specified level of return.
+
+## Outcomes
+
+----------------------
+AAPL: Exp ret = 0.001041, Risk = 0.001608
+AMZN: Exp ret = 0.001274, Risk = 0.002007
+GOOGL: Exp ret = 0.000929, Risk = 0.001615
+MSFT: Exp ret = 0.001061, Risk = 0.001491
+NVDA: Exp ret = 0.002676, Risk = 0.003828
+----------------------
+Optimal portfolio
+----------------------
+x[AAPL] = 0.156053
+x[AMZN] = 0.265775
+x[GOOGL] = 0.000000
+x[MSFT] = 0.030007
+x[NVDA] = 0.548165
+----------------------
+Exp ret = 0.002000
+risk    = 0.002289
+----------------------
+
+![image](https://github.com/user-attachments/assets/1643013b-08d8-4ca8-9d28-2a14c8ff0520)
+
+**Understanding Expected Return and Optimal Portfolio Allocation**
+
+The Expected Return is expressed as a percentage change, not an absolute dollar change. For example:
+	•	If NVIDIA’s stock price is low, a $10 price movement represents a large percentage change.
+	•	If NVIDIA’s stock price is high, the same $10 movement represents a smaller percentage change.
+
+For instance, if the Expected Return is 0.15 (15%), it means that, on average, NVIDIA’s daily percentage return is around 15%. Such a high return could occur if the stock price is low or highly volatile.
+
+**Optimal Portfolio Allocation (Last 10 Years)**
+
+Based on the Expected Return of each asset over the last 10 years, the optimal solution recommends the following allocation for maximum return:
+	•	NVIDIA (NVDA): 54.8%
+	•	Amazon (AMZN): 26.58%
+	•	Apple (AAPL): 15.6%
+	•	Microsoft (MSFT): 3%
+	•	Google (GOOGL): 0%
+
+**Impact of Required Return Constraint**
+
+	•	The highest daily return observed among the five stocks is 0.002676 (0.2676%).
+	•	If you set the Required Return above 0.002 (0.2%), no optimal solution will be found due to the constraint being too high.
+	•	If the Required Return is set below 0.002, the allocation will adjust accordingly to achieve the new target return while minimizing risk.
+
+In summary, portfolio optimization involves balancing expected returns and risk constraints. Adjusting the required return significantly impacts asset allocation, often shifting investments toward higher-return but riskier stocks like NVIDIA.
