@@ -15,33 +15,38 @@ Assuming you plan to invest in Apple, Microsoft, Amazon, Google, and Ndivia the 
 
 ## Algorithm implemented
 
-The goal of this optimization problem is to minimize portfolio risk (variance) for a given target return. The objective function is:
+The goal of this optimization problem is to minimize portfolio risk (variance) for a given target return. 
+**The objective function:**
 
-
-\text{Minimize } x^T C x
+<img width="452" alt="Screenshot 2025-02-16 at 5 24 27 PM" src="https://github.com/user-attachments/assets/987ce3b4-6c12-49f0-81e8-f6cb0ee04242" />
 
 
 where:
+
 	•	 x  is the vector of asset weights (proportions of total investment).
 	•	 C  is the covariance matrix of asset returns.
 	•	 x^T C x  represents the portfolio variance (risk).
 
-Constraints:
+**Constraints:**
+
   1.	Full Investment Constraint:
 
-\sum_{i=1}^{n} x_i = 1
+<img width="473" alt="Screenshot 2025-02-16 at 5 25 25 PM" src="https://github.com/user-attachments/assets/e09b48c5-9a56-4f93-8bf8-bbbe31d93556" />
+
 
 All available capital must be fully allocated to the selected assets.
 
 	2.	Return Constraint:
 
-r^T x \geq \text{req\_return}
+<img width="472" alt="Screenshot 2025-02-16 at 5 25 53 PM" src="https://github.com/user-attachments/assets/a577f87e-f035-4aaf-8d0c-2aa419c4ed5a" />
+
 
 The portfolio’s expected return must be at least the target return (\text{req\_return}).
 
 	3.	Non-negativity Constraint:
 
-x_i \geq 0 \quad \forall i
+<img width="463" alt="Screenshot 2025-02-16 at 5 26 18 PM" src="https://github.com/user-attachments/assets/26f6a3f6-3042-4892-b4ef-2eb9d1124d37" />
+
 
 No short selling is allowed (i.e., all portfolio weights must be non-negative).
 
@@ -64,7 +69,6 @@ There isn't a risk constraint in this model. Instead, risk is minimized through 
 The Expected Return is expressed as a percentage change, not an absolute dollar change. For example:
 
 	•	If NVIDIA’s stock price is low, a $10 price movement represents a large percentage change.
- 
  
 	•	If NVIDIA’s stock price is high, the same $10 movement represents a smaller percentage change.
 
