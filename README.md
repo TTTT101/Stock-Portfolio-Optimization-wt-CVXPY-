@@ -8,7 +8,7 @@ By framing this allocation challenge as a convex optimization problem, the code 
 
 ## Data Description
 
-Assuming you plan to invest in Apple, Microsoft, Amazon, Google, and Ndivia the first step is to gather historical market data. Using the _yfinance_ package, we retrieved daily closing prices for these stocks over the past 10 years. As of February 10, 2025, the dataset consists of 2,541 rows and 5 columns, representing the daily closing prices for each stock. Depending on your capital allocation cadency strategy, you can change the data range to just monthly.
+Assuming you plan to invest in Apple, Microsoft, Amazon, Google, and Ndivia the first step is to gather historical market data. Using the _yfinance_ package, we retrieved daily closing prices for these stocks over the past 10 years. As of February 10, 2025, the dataset consists of 2,541 rows and 5 columns, representing the daily closing prices for each stock. Depending on your capital allocation cadency strategy, you can change the data range to just months.
 
 <img width="504" alt="Screenshot 2025-02-16 at 5 18 10 PM" src="https://github.com/user-attachments/assets/e52251e2-9700-4d4a-980e-c5a0b947d6b5" />
 
