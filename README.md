@@ -55,12 +55,17 @@ There isn't a risk constraint in this model. Instead, risk is minimized through 
 <img width="407" alt="Screenshot 2025-02-16 at 4 48 19 PM" src="https://github.com/user-attachments/assets/8c1ea6a0-777f-4092-9216-dcb62166d41d" />
 
 
+
+
 ![image](https://github.com/user-attachments/assets/1643013b-08d8-4ca8-9d28-2a14c8ff0520)
 
 **Understanding Expected Return and Optimal Portfolio Allocation**
 
 The Expected Return is expressed as a percentage change, not an absolute dollar change. For example:
+
 	•	If NVIDIA’s stock price is low, a $10 price movement represents a large percentage change.
+ 
+ 
 	•	If NVIDIA’s stock price is high, the same $10 movement represents a smaller percentage change.
 
 For instance, if the Expected Return is 0.15 (15%), it means that, on average, NVIDIA’s daily percentage return is around 15%. Such a high return could occur if the stock price is low or highly volatile.
@@ -68,10 +73,15 @@ For instance, if the Expected Return is 0.15 (15%), it means that, on average, N
 **Optimal Portfolio Allocation (Last 10 Years)**
 
 Based on the Expected Return of each asset over the last 10 years, the optimal solution recommends the following allocation for maximum return:
+
 	•	NVIDIA (NVDA): 54.8%
+ 
 	•	Amazon (AMZN): 26.58%
+ 
 	•	Apple (AAPL): 15.6%
+ 
 	•	Microsoft (MSFT): 3%
+ 
 	•	Google (GOOGL): 0%
 
 **Impact of Required Return Constraint**
